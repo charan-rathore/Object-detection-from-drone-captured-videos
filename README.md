@@ -1,2 +1,78 @@
-# Object-detection-from-drone-captured-videos
-Involves male and female blackbuck detection using yolov8 from drone captured videos of wildlife habitat.
+# Blackbuck Detection from Drone Footage using YOLOv8
+## 📌 Project Overview
+
+This project focuses on detecting male and female blackbucks in drone-captured videos using the YOLOv8 object detection framework. The primary motivation is to automate wildlife monitoring and support ecological research by providing accurate detection of blackbucks in challenging aerial footage.
+
+## 📊 Dataset
+
+Source: Drone videos of blackbuck habitats
+
+Total videos: 9 (7 for training, 2 for testing)
+
+Classes:
+
+male_blackbuck
+
+female_blackbuck
+
+Format: Images extracted from drone footage, annotated in YOLO format
+
+## 🛠️ Methodology
+
+Model: Ultralytics YOLOv8
+
+Input resolutions tested: 640p, 1040p, 1240p
+
+Training: Transfer learning using pretrained YOLOv8 weights
+
+Metrics evaluated:
+
+Validation mAP (mAP50-95)
+
+Test confidence and F1-score
+
+## 📈 Results
+Resolution Impact on F1-Score
+Resolution	F1-Score
+640p	0.51
+1040p	0.79
+1240p	0.82
+
+Key insight: Higher resolutions significantly improve detection accuracy because blackbucks appear small in drone footage.
+
+Going from 640p → 1040p yields a large improvement (+0.28 in F1).
+
+Going from 1040p → 1240p shows diminishing returns (+0.03).
+
+Validation vs Test Accuracy
+
+Validation mAP50-95: 0.089 (8.9%)
+
+Test Mean Confidence: 0.266 (26.6%)
+
+This shows that while the model is somewhat confident in predictions, actual localization accuracy (mAP) is still low, likely due to dataset size and complexity.
+
+F1 Score Plot for 1240p:
+<img width="2250" height="1500" alt="1240p" src="https://github.com/user-attachments/assets/642170e2-1311-42ac-9fe0-36f0d64e7e5c" />
+
+F1 Score Plot for 1040p:
+<img width="2250" height="1500" alt="1040p" src="https://github.com/user-attachments/assets/b3060e20-7513-4c0b-a7f2-e4a30502514e" />
+
+F1 Score Plot for 640p:
+<img width="2250" height="1500" alt="640p" src="https://github.com/user-attachments/assets/a9249e5d-de0e-4402-bf1a-d117705123b8" />
+
+
+
+## ⚠️ Challenges & Drawbacks
+
+Small dataset – Only 9 videos, which limits generalization.
+
+Low validation mAP – Suggests underfitting or need for more diverse training data.
+
+Resolution trade-off –
+
+Low resolutions (e.g., 640p) fail to capture fine features (horns, contours).
+
+High resolutions (1240p) improve accuracy but at the cost of higher GPU memory and inference time.
+
+Sweet spot: ~1040p, balancing accuracy and compute.
